@@ -14,7 +14,9 @@ export type RawSms = { body: string; date?: number; address?: string };
 export async function readSmsInbox(sinceMs?: number): Promise<RawSms[]> {
   if (!isAndroidApp()) return [];
   try {
-    const mod = (await import(/* @vite-ignore */ "@capacitor-community/sms-inbox").catch(() => null)) as
+    // Dynamic import string is opaque to TS/Vite so the web build never tries to resolve it.
+    const pkg = "@capacitor-community/sms-inbox";
+    const mod = (await (new Function("p", "return import(p)") as (p: string) => Promise<unknown>)(pkg).catch(() => null)) as
       | { SMSInboxReader?: { requestPermissions: () => Promise<unknown>; getSMSList: (opts: unknown) => Promise<{ smsList: RawSms[] }> } }
       | null;
     if (!mod?.SMSInboxReader) return [];
