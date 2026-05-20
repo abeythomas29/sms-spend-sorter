@@ -14,7 +14,184 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          color: string
+          created_at: string
+          icon: string | null
+          id: string
+          kind: Database["public"]["Enums"]["category_kind"]
+          name: string
+          user_id: string
+        }
+        Insert: {
+          color?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["category_kind"]
+          name: string
+          user_id: string
+        }
+        Update: {
+          color?: string
+          created_at?: string
+          icon?: string | null
+          id?: string
+          kind?: Database["public"]["Enums"]["category_kind"]
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      merchant_rules: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          id: string
+          match_text: string
+          user_id: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          match_text: string
+          user_id: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          id?: string
+          match_text?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "merchant_rules_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          default_currency: string
+          display_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          default_currency?: string
+          display_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          default_currency?: string
+          display_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sms_imports: {
+        Row: {
+          created_at: string
+          id: string
+          parsed_count: number
+          raw_text: string
+          unparsed_count: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          parsed_count?: number
+          raw_text: string
+          unparsed_count?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          parsed_count?: number
+          raw_text?: string
+          unparsed_count?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          account_last4: string | null
+          amount: number
+          bank: string | null
+          category_id: string | null
+          confirmed: boolean
+          counterparty: string | null
+          created_at: string
+          currency: string
+          id: string
+          notes: string | null
+          raw_sms: string | null
+          reference: string | null
+          source: Database["public"]["Enums"]["txn_source"]
+          txn_datetime: string
+          type: Database["public"]["Enums"]["txn_type"]
+          user_id: string
+        }
+        Insert: {
+          account_last4?: string | null
+          amount: number
+          bank?: string | null
+          category_id?: string | null
+          confirmed?: boolean
+          counterparty?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          notes?: string | null
+          raw_sms?: string | null
+          reference?: string | null
+          source?: Database["public"]["Enums"]["txn_source"]
+          txn_datetime?: string
+          type: Database["public"]["Enums"]["txn_type"]
+          user_id: string
+        }
+        Update: {
+          account_last4?: string | null
+          amount?: number
+          bank?: string | null
+          category_id?: string | null
+          confirmed?: boolean
+          counterparty?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          notes?: string | null
+          raw_sms?: string | null
+          reference?: string | null
+          source?: Database["public"]["Enums"]["txn_source"]
+          txn_datetime?: string
+          type?: Database["public"]["Enums"]["txn_type"]
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +200,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      category_kind: "expense" | "income" | "transfer"
+      txn_source: "sms_paste" | "sms_auto" | "manual"
+      txn_type: "debit" | "credit"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +329,10 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      category_kind: ["expense", "income", "transfer"],
+      txn_source: ["sms_paste", "sms_auto", "manual"],
+      txn_type: ["debit", "credit"],
+    },
   },
 } as const
