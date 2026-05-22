@@ -5,9 +5,8 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
+import { HeadContent, Scripts } from "@tanstack/react-start";
 import { Toaster } from "sonner";
 
 import { supabase } from "@/integrations/supabase/client";
