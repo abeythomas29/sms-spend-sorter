@@ -83,13 +83,25 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+function SafeHeadContent() {
+  if (typeof document === "undefined") return null;
+  return (
+    <HeadErrorBoundary>
+      <HeadContent />
+    </HeadErrorBoundary>
+  );
+}
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <HeadErrorBoundary>
-          <HeadContent />
-        </HeadErrorBoundary>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Ledger — SMS expense tracker</title>
+        <meta name="description" content="Parse bank SMS into a clean transaction log with daily check-ins and dashboards." />
+        <link rel="stylesheet" href={appCss} />
+        <SafeHeadContent />
       </head>
       <body>{children}<Scripts /></body>
     </html>
