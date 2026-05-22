@@ -48,6 +48,9 @@ function Landing() {
           ))}
         </div>
       </main>
+      <footer className="mx-auto max-w-5xl px-6 py-8 text-center text-xs text-muted-foreground">
+        <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
+      </footer>
     </div>
   );
 }
