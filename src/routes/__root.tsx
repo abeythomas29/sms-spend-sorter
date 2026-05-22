@@ -1,11 +1,10 @@
-import { useEffect, Component, type ReactNode } from "react";
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import {
   Outlet,
   Link,
   createRootRouteWithContext,
   useRouter,
-  HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 import { Toaster } from "sonner";
@@ -48,17 +47,6 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   );
 }
 
-class HeadErrorBoundary extends Component<{ children: ReactNode }> {
-  state = { hasError: false };
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-  render() {
-    if (this.state.hasError) return null;
-    return this.props.children;
-  }
-}
-
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
@@ -83,15 +71,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
-function SafeHeadContent() {
-  if (typeof document === "undefined") return null;
-  return (
-    <HeadErrorBoundary>
-      <HeadContent />
-    </HeadErrorBoundary>
-  );
-}
-
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
@@ -100,8 +79,15 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>Ledger — SMS expense tracker</title>
         <meta name="description" content="Parse bank SMS into a clean transaction log with daily check-ins and dashboards." />
+        <meta property="og:title" content="Ledger — SMS expense tracker" />
+        <meta name="twitter:title" content="Ledger — SMS expense tracker" />
+        <meta property="og:description" content="Parse bank SMS into a clean transaction log with daily check-ins and dashboards." />
+        <meta name="twitter:description" content="Parse bank SMS into a clean transaction log with daily check-ins and dashboards." />
+        <meta property="og:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/93d6f947-84e5-4aea-92a0-f800ced1fb72/id-preview-410f63df--b3297fa9-8517-4b0e-9b4a-c6e8b2c17360.lovable.app-1779297216392.png" />
+        <meta name="twitter:image" content="https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/93d6f947-84e5-4aea-92a0-f800ced1fb72/id-preview-410f63df--b3297fa9-8517-4b0e-9b4a-c6e8b2c17360.lovable.app-1779297216392.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta property="og:type" content="website" />
         <link rel="stylesheet" href={appCss} />
-        <SafeHeadContent />
       </head>
       <body>{children}<Scripts /></body>
     </html>
