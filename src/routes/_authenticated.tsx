@@ -48,6 +48,9 @@ function AuthLayout() {
         </div>
       </header>
       <main className="mx-auto max-w-6xl px-6 py-10"><Outlet /></main>
+      <footer className="mx-auto max-w-6xl px-6 py-6 text-center text-xs text-muted-foreground">
+        <Link to="/privacy" className="hover:text-foreground">Privacy Policy</Link>
+      </footer>
     </div>
   );
 }
