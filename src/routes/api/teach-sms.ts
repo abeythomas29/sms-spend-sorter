@@ -61,7 +61,9 @@ export const Route = createFileRoute("/api/teach-sms")({
       POST: async ({ request }) => {
         try {
           const apiKey = process.env.OPENAI_API_KEY;
+          console.log("teach-sms: OPENAI_API_KEY present:", !!apiKey);
           if (!apiKey) {
+            console.error("teach-sms: OPENAI_API_KEY is missing from environment");
             return new Response(
               JSON.stringify({ error: "OPENAI_API_KEY is not configured" }),
               { status: 500, headers: jsonHeaders },
