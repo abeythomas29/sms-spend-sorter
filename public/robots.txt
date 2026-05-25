@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sms-spend-sorter.lovable.app/sitemap.xml
