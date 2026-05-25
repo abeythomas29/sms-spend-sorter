@@ -52,6 +52,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "google-site-verification", content: "hwfTvIGfPSuaasUhRcRXawJGA7sevK-33jYjEMpKiXM" },
       { title: "Ledger — SMS expense tracker" },
       { name: "description", content: "Parse bank SMS into a clean transaction log with daily check-ins and dashboards." },
       { property: "og:title", content: "Ledger — SMS expense tracker" },
@@ -77,6 +78,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="google-site-verification" content="hwfTvIGfPSuaasUhRcRXawJGA7sevK-33jYjEMpKiXM" />
         <title>Ledger — SMS expense tracker</title>
         <meta name="description" content="Parse bank SMS into a clean transaction log with daily check-ins and dashboards." />
         <meta property="og:title" content="Ledger — SMS expense tracker" />
